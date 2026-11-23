@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decision Desk</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Decision Desk home">
+        <span class="brand-mark">D</span>
+        <span>Decision Desk</span>
+      </a>
+      <div class="status"><span id="status-dot"></span><span id="status-text">Connecting</span></div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">TYPED DECISIONS</p>
+        <h1>Turn a request into an<br /><em>actionable answer.</em></h1>
+        <p class="intro">Classify support requests with explicit outcomes, probabilities, and a safe review path.</p>
+      </section>
+
+      <section class="workspace">
+        <aside class="sidebar">
+          <div class="credential-panel">
+            <p class="panel-label">OpenAI credential</p>
+            <label class="sr-only" for="api-key">OpenAI API key</label>
+            <input id="api-key" type="password" autocomplete="off" placeholder="sk-..." />
+            <button id="save-key-button" class="save-key-button" type="button">Use this key</button>
+            <p id="key-status" class="key-status">Local evaluator mode</p>
+          </div>
+          <p class="panel-label">Question type</p>
+          <button class="mode-button active" data-type="choice">
+            <span class="mode-icon">01</span>
+            <span><strong>Choice</strong><small>Route to a team</small></span>
+          </button>
+          <button class="mode-button" data-type="predicate">
+            <span class="mode-icon">02</span>
+            <span><strong>Predicate</strong><small>Estimate yes / no</small></span>
+          </button>
+          <button class="mode-button" data-type="score">
+            <span class="mode-icon">03</span>
+            <span><strong>Score</strong><small>Measure a rubric</small></span>
+          </button>
+        </aside>
+
+        <div class="content">
+          <div class="content-heading">
+            <div>
+              <p class="panel-label">Decision input</p>
+              <h2 id="decision-title">Which team should handle this request first?</h2>
+            </div>
+            <button id="clear-button" class="text-button">Clear</button>
+          </div>
+
+          <label class="sr-only" for="input">Request or passage</label>
+          <textarea id="input" rows="6" placeholder="Describe the request or paste a passage..."></textarea>
+
+          <div id="predicate-options" class="predicate-options" hidden>
+            <label for="instructions">Predicate instructions</label>
+            <input id="instructions" value="Does the passage provide at least one concrete step for rotating an API key?" />
+          </div>
+
+          <div class="examples">
+            <span>Try an example</span>
+            <button data-example="I cannot sign in or reset my password. I have tried both my old and new email addresses." data-title="choice">Account access</button>
+            <button data-example="I was charged twice for the same subscription and need an invoice for each charge." data-title="choice">Billing</button>
+            <button data-example="Create a replacement key, update every service that uses the old key, then revoke the old key after verification." data-title="predicate">API key rotation</button>
+          </div>
+
+          <button id="evaluate-button" class="evaluate-button">
+            <span>Evaluate decision</span>
+            <span aria-hidden="true">→</span>
+          </button>
+
+          <section id="result" class="result" aria-live="polite" hidden></section>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
